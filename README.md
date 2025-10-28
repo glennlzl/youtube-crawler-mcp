@@ -85,6 +85,22 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 }
 ```
 
+## Docker Deployment
+
+### Build and Run Locally
+
+```bash
+# Build image
+docker build -t youtube-crawler-mcp .
+
+# Run with docker-compose
+docker-compose up
+```
+
+### Deploy to AWS Fargate
+
+See [DEPLOY.md](DEPLOY.md) for detailed AWS Fargate deployment instructions.
+
 ## Testing
 
 ```bash

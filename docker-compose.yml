@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  youtube-crawler-mcp:
+    build: .
+    image: youtube-crawler-mcp:latest
+    container_name: youtube-crawler-mcp
+    environment:
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - AI_PROVIDER=${AI_PROVIDER:-deepseek}
+      - SUMMARY_MODEL=${SUMMARY_MODEL:-deepseek-reasoner}
+      - TEMP_DIR=/app/temp
+      - MCP_SERVER_NAME=youtube-crawler
+    volumes:
+      - ./temp:/app/temp
+    restart: unless-stopped
+    stdin_open: true
+    tty: true

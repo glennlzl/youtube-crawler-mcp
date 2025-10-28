@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment
+.env
+
+# Temporary Files
+temp/
+*.mp4
+*.mp3
+*.wav
+*.webm
+*.m4a
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+test_*.py
+.pytest_cache/
+.coverage
+
+# Documentation (not needed in container)
+README.md

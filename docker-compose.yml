@@ -5,6 +5,8 @@ services:
     build: .
     image: youtube-crawler-mcp:latest
     container_name: youtube-crawler-mcp
+    ports:
+      - "8080:8080"
     environment:
       - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -13,8 +15,9 @@ services:
       - SUMMARY_MODEL=${SUMMARY_MODEL:-deepseek-reasoner}
       - TEMP_DIR=/app/temp
       - MCP_SERVER_NAME=youtube-crawler
+      - MCP_TRANSPORT=streamable-http
+      - PORT=8080
+      - HOST=0.0.0.0
     volumes:
       - ./temp:/app/temp
     restart: unless-stopped
-    stdin_open: true
-    tty: true

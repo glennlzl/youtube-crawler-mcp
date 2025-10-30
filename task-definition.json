@@ -1,0 +1,65 @@
+{
+  "family": "youtube-crawler-mcp",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "runtimePlatform": {
+    "cpuArchitecture": "ARM64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "executionRoleArn": "arn:aws:iam::383681097411:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "youtube-crawler-mcp",
+      "image": "383681097411.dkr.ecr.us-east-1.amazonaws.com/mcp/youtube-crawler-mcp:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/youtube-crawler-mcp",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "secrets": [
+        {
+          "name": "YOUTUBE_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:383681097411:secret:llmApiCredentials-BnsV4o:youtube-api-key::"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:383681097411:secret:llmApiCredentials-BnsV4o:openai-api-key::"
+        },
+        {
+          "name": "DEEPSEEK_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:383681097411:secret:llmApiCredentials-BnsV4o:deepseek-api-key::"
+        }
+      ],
+      "environment": [
+        {
+          "name": "AI_PROVIDER",
+          "value": "deepseek"
+        },
+        {
+          "name": "SUMMARY_MODEL",
+          "value": "deepseek-reasoner"
+        },
+        {
+          "name": "TEMP_DIR",
+          "value": "/app/temp"
+        },
+        {
+          "name": "MCP_SERVER_NAME",
+          "value": "youtube-crawler"
+        }
+      ]
+    }
+  ]
+}

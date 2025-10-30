@@ -1,30 +1,56 @@
 # YouTube Crawler MCP Server
 
-A Model Context Protocol (MCP) server for YouTube data crawling with AI-powered summarization.
+A Model Context Protocol (MCP) server for YouTube data crawling with AI-powered summarization. Built with **FastMCP** for easy deployment as both local and remote MCP server.
 
-## Features
+## ✨ Features
 
 - **Channel metadata** retrieval
 - **AI video summaries** with automatic transcription (Whisper API)
 - **Time-range queries** for videos
 - Supports videos with/without subtitles
 - Multi-language support with smart language detection
+- **Dual transport**: stdio (local) and Streamable HTTP (remote)
+- **Cloud-ready**: Deploy to AWS, Google Cloud Run, Fly.io, etc.
 
-## Quick Start
+## 🚀 Quick Start
+
+### Local Usage (stdio)
 
 ```bash
 # Install dependencies
 pip install -e .
 
-# Configure .env
-YOUTUBE_API_KEY=your_youtube_key
-OPENAI_API_KEY=your_openai_key
-DEEPSEEK_API_KEY=your_deepseek_key
-AI_PROVIDER=deepseek
-SUMMARY_MODEL=deepseek-reasoner
+# Configure environment
+export YOUTUBE_API_KEY=your_youtube_key
+export OPENAI_API_KEY=your_openai_key
+export DEEPSEEK_API_KEY=your_deepseek_key
 
-# Run MCP server
-python -m src.server
+# Run with stdio (for Claude Desktop)
+python main.py stdio
+```
+
+### Remote Server (Streamable HTTP)
+
+```bash
+# Run HTTP server
+python main.py streamable-http
+
+# Server will start on http://0.0.0.0:8080
+# Use with Claude API, Lambda, or other cloud agents
+```
+
+### Docker
+
+```bash
+# Build
+docker build -t youtube-crawler-mcp .
+
+# Run
+docker run -p 8080:8080 \
+  -e YOUTUBE_API_KEY=your_key \
+  -e OPENAI_API_KEY=your_key \
+  -e DEEPSEEK_API_KEY=your_key \
+  youtube-crawler-mcp
 ```
 
 ## MCP Tools
